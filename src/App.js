@@ -30,7 +30,7 @@ class App extends Component {
 
 
   render() {
-    var i = 10;
+    var i = 50;
     const printer = () => {
       this.setState({ isModalActive: true }, () => { if (exportComponent.current) exportComponent.current.save(); })
     }
@@ -46,7 +46,7 @@ class App extends Component {
             {(() => {
               var items = [];
               while (i > 0) {
-                if (i === 10) { items.push(<div key={i}><Copy /> </div>); }
+                if (i === 50) { items.push(<div key={i}><Copy /> </div>); }
                 else items.push(<div key={i} className="page-break"><Copy /> </div>);
                 i--;
               }
