@@ -1,49 +1,53 @@
 import './App.css';
 import Copy from './Copy';
 import { PDFExport } from "@progress/kendo-react-pdf";
-import exportPDFWithMethod from "@progress/kendo-react-pdf";
 import 'tachyons'
-import { Component, useRef, createRef } from 'react';
+import React, { Component, useRef, createRef } from 'react';
 import Modal from './Modal';
 
 const initialState = {
-  isModalActive: false,
+  startPrint: false,
   progress: 10
 }
 
-var exportComponent = createRef(null);
-
+// var exportComponent = createRef(null);
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
+    this.exportComponent = createRef();
   }
-  // const exportPDFWithMethod = () => {
-  //   let element = container.current || document.body;
-  //   savePDF(element, {
-  //     paperSize: "A4",
-  //     // margin: 40,
-  //     fileName: `Report for ${new Date().getFullYear()}`,
-  //   });
-  // };
-
-
 
   render() {
     var i = 50;
-    const printer = () => {
-      this.setState({ isModalActive: true }, () => { if (exportComponent.current) exportComponent.current.save(); })
+    const initiatePrint = () => {
+      this.setState({ startPrint: true }, () => {
+        (this.exportComponent.current) && this.exportComponent.current.save()
+      })
     }
+
     const resetModal = () => {
       this.setState(initialState);
     }
+
     return (
-      <div >
-        {this.state.isModalActive && <Modal progress={this.state.progress} resetModal={resetModal} />}
-        <div className={(this.state.isModalActive) && "dimmer"}>
-          <button className='br3 fw7 bco f3 link shadow black pointer mt1 mb1 ma2 bg-orange' onClick={printer}>Print</button>
-          <PDFExport scale={0.5} paperSize={"A4"} forcePageBreak='.page-break' ref={exportComponent}>
+      <div>
+        {/* {
+          (this.state.startPrint) && 
+        } */}
+        {this.state.startPrint && (
+          <div style={{ width: "100%", position: "fixed", zIndex: "2", top: "0" }}>
+            <article className=" br2 bg-white pt2 pb3 ba b--black-10 mv4 mw6 shadow-5 center">
+              <div className='flex justify-end pr3 pt2'>
+                <button onClick={resetModal} className='ba b--near-white br3 flex-end shadow-4 dim pointer flex'> <p className='pa0 ma0 b'>X</p> </button>
+              </div>
+              <Modal progress={this.state.progress} resetModal={resetModal} />
+            </article>
+          </div>)}
+        <div className={(this.state.startPrint) ? "dimmer" : ""}>
+          <button className='br3 fw7 bco f3 link shadow black pointer mt1 mb1 ma2 bg-orange' onClick={initiatePrint}>Print</button>
+          <PDFExport scale={0.5} paperSize={"A4"} forcePageBreak='.page-break' ref={this.exportComponent}>
             <div>
               {(() => {
                 var items = [];

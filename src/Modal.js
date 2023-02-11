@@ -16,28 +16,21 @@ export default function Modal({ progress, resetModal }) {
 
     React.useEffect(() => {
         const timer = setInterval(() => {
-            setProg((prevProg) => (prevProg >= 100 ? clearInterval() : ((progress) ?  prevProg + progress : prevProg)));
-        }, 100);
+            setProg((prevProg) => (prevProg >= 100 ? resetModal() : ((progress) ? prevProg + progress : prevProg)));
+        }, 10);
         return () => {
             clearInterval(timer);
         };
     }, []);
 
     return (
-        <div style={{width : "100%", position : "fixed", zIndex : "2", top : "0"}}>
-            <article className=" br2 bg-white pt2 pb3 ba b--black-10 mv4 mw6 shadow-5 center">
-                <div className='flex justify-end pr3 pt2'>
-                    <button onClick={resetModal} className='ba b--near-white br3 flex-end shadow-4 dim pointer flex'> <p className='pa0 ma0 b'>X</p> </button>
-                </div>
-                <main className="pa4 black-80">
-                    <div className="measure">
-                        <Box sx={{ width: '100%' }}>
-                            <LinearProgressWithLabel value={prog} />
-                        </Box>
-                    </div>
-                </main>
-            </article>
-        </div>
+        <main className="pa4 black-80">
+            <div className="measure">
+                <Box sx={{ width: '100%' }}>
+                    <LinearProgressWithLabel value={(prog) ? prog : 0} />
+                </Box>
+            </div>
+        </main>
     )
 }
 
