@@ -3,22 +3,34 @@ import Chart from './Chart.js';
 
 function Copy() {
   return (
-    <div style={{margin : "2rem"}}>
+    <div style={{ margin: "2rem" }}>
       <div style={{ border: "1px solid black" }}>
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-          {keys.map(data => <p>{data}</p>)}
+          {(() => {
+            try { return (keys.map(data => <p>{data}</p>)) }
+            catch (err) { return (<h1> No Data</h1>) }
+          })()}
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
           <div style={{ display: 'flex-column', justifyContent: 'space-around' }}>
-            {values.FirstName.map(data => <p>{data}</p>)}
+            {(() => {
+              try { return (values.FirstName.map(data => <p>{data}</p>)) }
+              catch (err) { return (<h1> No Data</h1>) }
+            })()}
           </div>
 
           <div style={{ display: 'flex-column', justifyContent: 'space-around' }}>
-            {values.LastName.map(data => <p>{data}</p>)}
+            {(() => {
+              try { return (values.LastName.map(data => <p>{data}</p>)) }
+              catch (err) { return (<h1> No Data</h1>) }
+            })()}
           </div>
 
           <div style={{ display: 'flex-column', justifyContent: 'space-around' }}>
-            {values.userName.map(data => <p>{data}</p>)}
+            {(() => {
+              try { return (values.userName.map(data => <p>{data}</p>)) }
+              catch (err) { return (<h1> No Data</h1>) }
+            })()}
           </div>
         </div>
         <div>

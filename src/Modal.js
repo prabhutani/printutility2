@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { bgcolor } from '@mui/system';
 
 
 
@@ -12,29 +13,32 @@ LinearProgressWithLabel.propTypes = {
 
 export default function Modal({ progress, resetModal }) {
     const [prog, setProg] = React.useState(0);
-    
+
     React.useEffect(() => {
         const timer = setInterval(() => {
-          setProg((prevProg) => (prevProg >= 100 ? resetModal() : prevProg + progress));
+            setProg((prevProg) => (prevProg >= 100 ? clearInterval() : ((progress) ?  prevProg + progress : prevProg)));
         }, 100);
         return () => {
-          clearInterval(timer);
+            clearInterval(timer);
         };
-      }, []);
+    }, []);
 
-        return (
-            <div>
-                <div style = {{display : "flex", justifyContent : "flex-end"}}>
-                    <button onClick={resetModal} style = {{border : "none"}}> X </button>
+    return (
+        <div style={{width : "100%", position : "fixed", zIndex : "2", top : "0"}}>
+            <article className=" br2 bg-white pt2 pb3 ba b--black-10 mv4 mw6 shadow-5 center">
+                <div className='flex justify-end pr3 pt2'>
+                    <button onClick={resetModal} className='ba b--near-white br3 flex-end shadow-4 dim pointer flex'> <p className='pa0 ma0 b'>X</p> </button>
                 </div>
-                <div className='pa5 ma5'>
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgressWithLabel value={prog} />
-                 </Box>
-                 </div>
-            </div>
-            
-        )
+                <main className="pa4 black-80">
+                    <div className="measure">
+                        <Box sx={{ width: '100%' }}>
+                            <LinearProgressWithLabel value={prog} />
+                        </Box>
+                    </div>
+                </main>
+            </article>
+        </div>
+    )
 }
 
 

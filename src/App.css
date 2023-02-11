@@ -13,6 +13,11 @@
   }
 }
 
+.dimmer{
+  opacity: 0.1;
+  position: relative;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
