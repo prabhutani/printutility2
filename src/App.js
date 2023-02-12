@@ -10,20 +10,21 @@ const initialState = {
   progress: 10
 }
 
-// var exportComponent = createRef(null);
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
-    this.exportComponent = createRef();
+    this.exportComponent = createRef(null);
+    this.but = createRef(null);
   }
 
   render() {
     var i = 50;
+
     const initiatePrint = () => {
       this.setState({ startPrint: true }, () => {
-        (this.exportComponent.current) && this.exportComponent.current.save()
+        this.exportComponent.current.save()
       })
     }
 
@@ -33,21 +34,20 @@ class App extends Component {
 
     return (
       <div>
-        {/* {
-          (this.state.startPrint) && 
-        } */}
-        {this.state.startPrint && (
-          <div style={{ width: "100%", position: "fixed", zIndex: "2", top: "0" }}>
-            <article className=" br2 bg-white pt2 pb3 ba b--black-10 mv4 mw6 shadow-5 center">
-              <div className='flex justify-end pr3 pt2'>
-                <button onClick={resetModal} className='ba b--near-white br3 flex-end shadow-4 dim pointer flex'> <p className='pa0 ma0 b'>X</p> </button>
-              </div>
-              <Modal progress={this.state.progress} resetModal={resetModal} />
-            </article>
-          </div>)}
-        <div className={(this.state.startPrint) ? "dimmer" : ""}>
-          <button className='br3 fw7 bco f3 link shadow black pointer mt1 mb1 ma2 bg-orange' onClick={initiatePrint}>Print</button>
-          <PDFExport scale={0.5} paperSize={"A4"} forcePageBreak='.page-break' ref={this.exportComponent}>
+        {
+          this.state.startPrint && (
+            <div style={{ width: "100%", position: "fixed", zIndex: "2", top: "0" }}>
+              <article className=" br2 bg-white pt2 pb3 ba b--black-10 mv4 mw6 shadow-5 center">
+                <div className='flex justify-end pr3 pt2'>
+                  <button id='butt' onClick={() => { this.setState({ startPrint: false }) }} className='ba b--near-white br3 flex-end shadow-4 dim pointer flex'> <p className='pa0 ma0 b'>X</p> </button>
+                </div>
+                <Modal progress={this.state.progress} resetModal={resetModal} />
+              </article>
+            </div>)
+        }
+        < div className={(this.state.startPrint) ? "dimmer" : ""}>
+          <button className='br3 fw7 bco pl2 pr2 pb1 f4 link shadow white pointer mt1 mb1 ma2 bg-dark-blue' ref={this.but} onClick={initiatePrint}>Print</button>
+          <PDFExport scale={0.5} forcePageBreak='.page-break' ref={this.exportComponent}>
             <div>
               {(() => {
                 var items = [];
@@ -60,8 +60,8 @@ class App extends Component {
               })()}
             </div>
           </PDFExport>
-        </div>
-      </div>
+        </div >
+      </div >
     )
   }
 }

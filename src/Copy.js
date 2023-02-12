@@ -1,13 +1,15 @@
 import { keys, values } from './data.js';
 import Chart from './Chart.js';
+import 'tachyons'
 
 function Copy() {
   return (
     <div style={{ margin: "2rem" }}>
       <div style={{ border: "1px solid black" }}>
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <div className='b bg-light-gray ma2' style={{ display: 'flex', justifyContent: 'space-around' }}>
           {(() => {
-            try { return (keys.map(data => <p>{data}</p>)) }
+            var i = 0;
+            try { return (keys.map(data => <p className='b'>{data}</p>))}
             catch (err) { return (<h1> No Data</h1>) }
           })()}
         </div>
