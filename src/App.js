@@ -10,7 +10,6 @@ const initialState = {
   progress: 10
 }
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -19,13 +18,15 @@ class App extends Component {
     this.but = createRef(null);
   }
 
+  componentDidUpdate = () => {
+    if(this.state.startPrint) this.exportComponent.current.save();
+  }
+
   render() {
     var i = 50;
 
     const initiatePrint = () => {
-      this.setState({ startPrint: true }, () => {
-        this.exportComponent.current.save()
-      })
+      this.setState({ startPrint: true })
     }
 
     const resetModal = () => {

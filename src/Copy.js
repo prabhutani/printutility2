@@ -9,28 +9,28 @@ function Copy() {
         <div className='b bg-light-gray ma2' style={{ display: 'flex', justifyContent: 'space-around' }}>
           {(() => {
             var i = 0;
-            try { return (keys.map(data => <p className='b'>{data}</p>))}
+            try { return (keys.map((data, id) => <p key={id} className='b'>{data}</p>)) }
             catch (err) { return (<h1> No Data</h1>) }
           })()}
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
           <div style={{ display: 'flex-column', justifyContent: 'space-around' }}>
             {(() => {
-              try { return (values.FirstName.map(data => <p>{data}</p>)) }
+              try { return (values.FirstName.map((data, id) => <p key={id}>{data}</p>)) }
               catch (err) { return (<h1> No Data</h1>) }
             })()}
           </div>
 
           <div style={{ display: 'flex-column', justifyContent: 'space-around' }}>
             {(() => {
-              try { return (values.LastName.map(data => <p>{data}</p>)) }
+              try { return (values.LastName.map((data, id) => <p key={id}>{data}</p>)) }
               catch (err) { return (<h1> No Data</h1>) }
             })()}
           </div>
 
           <div style={{ display: 'flex-column', justifyContent: 'space-around' }}>
             {(() => {
-              try { return (values.userName.map(data => <p>{data}</p>)) }
+              try { return (values.userName.map((data, id) => <p key={id}>{data}</p>)) }
               catch (err) { return (<h1> No Data</h1>) }
             })()}
           </div>
